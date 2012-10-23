@@ -4,7 +4,7 @@
 package main;
 
 /**
- * @author robert
+ * @author Robert
  *
  */
 public class Spider {
