@@ -2,26 +2,32 @@ package app.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLConnection
 {
-	private static Connection	conn				= null;
+
+	private static MySQLConnection	instance		= null;
+	private static Connection				conn				= null;
 
 	// Hostname
-	private static String			dbHost			= "localhost";
+	private static final String			dbHost			= "localhost";
 
 	// Port -- Standard: 3306
-	private static String			dbPort			= "3306";
+	private static final String			dbPort			= "3306";
 
 	// Datenbankname
-	private static String			database		= "test";
+	private static final String			database		= "test";
 
 	// Datenbankuser
-	private static String			dbUser			= "root";
+	private static final String			dbUser			= "root";
 
 	// Datenbankpasswort
-	private static String			dbPassword	= "mysql";
+	private static final String			dbPassword	= "mysql";
 
 	private MySQLConnection()
 	{
@@ -48,9 +54,35 @@ public class MySQLConnection
 		}
 	}
 
-	public static Connection getInstance()
+	public static MySQLConnection getInstance()
 	{
-		if ( conn == null ) new MySQLConnection();
-		return conn;
+		if ( instance == null ) instance = new MySQLConnection();
+		return instance;
+	}
+
+	public List <Website> getWebsites()
+	{
+		try
+		{
+			List <Website> websites = new ArrayList <Website>();
+
+			Statement stmt = conn.createStatement();
+
+			ResultSet result = stmt.executeQuery( "select name, url from website" );
+
+			while ( result.next() )
+			{
+				websites.add( new Website( result.getString( 1 ), result.getString( 2 ) ) );
+			}
+
+			result.close();
+			stmt.close();
+
+			return websites;
+		}
+		catch ( SQLException e )
+		{
+			throw new RuntimeException( e );
+		}
 	}
 }

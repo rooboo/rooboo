@@ -1,6 +1,5 @@
 package app.main;
 
-import java.util.LinkedList;
 import java.util.List;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.TableViewer;
@@ -11,7 +10,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import app.table.WebsiteTableViewer;
 
 public class MainApplication extends ApplicationWindow
 {
@@ -24,8 +23,6 @@ public class MainApplication extends ApplicationWindow
 	{
 		super( null );
 		mainWindow = this;
-		// addEntryAction = new AddEntryAction();
-		entries = new LinkedList();
 		addToolBar( SWT.NONE );
 	}
 
@@ -46,12 +43,6 @@ public class MainApplication extends ApplicationWindow
 		Display.getCurrent().dispose();
 	}
 
-	// public void add( AddressEntry entry )
-	// {
-	// entries.add( entry );
-	// refresh();
-	// }
-
 	protected void configureShell( Shell shell )
 	{
 		super.configureShell( shell );
@@ -60,21 +51,11 @@ public class MainApplication extends ApplicationWindow
 
 	protected Control createContents( Composite parent )
 	{
-		viewer = new TableViewer( parent );
-		// viewer.setContentProvider( new AddressBookContentProvider() );
-		// viewer.setLabelProvider( new AddressBookLabelProvider() );
-		// viewer.setInput( entries );
-
-		Table table = viewer.getTable();
-		new TableColumn( table, SWT.LEFT ).setText( "First Name" );
-		new TableColumn( table, SWT.LEFT ).setText( "Last Name" );
-		new TableColumn( table, SWT.LEFT ).setText( "E-mail Address" );
-		table.setHeaderVisible( true );
-		table.setLinesVisible( true );
+		viewer = new WebsiteTableViewer( parent );
 
 		refresh();
 
-		return table;
+		return viewer.getTable();
 	}
 
 	protected ToolBarManager createToolBarManager( int style )
