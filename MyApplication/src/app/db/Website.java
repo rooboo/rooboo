@@ -38,4 +38,10 @@ public class Website
 		this.url = url;
 	}
 
+	@Override
+	public String toString()
+	{
+		return getName() + ", " + getUrl();
+	}
+
 }

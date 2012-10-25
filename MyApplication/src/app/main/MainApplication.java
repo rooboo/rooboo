@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import app.spider.Spider;
 import app.table.WebsiteTableViewer;
 
 public class MainApplication extends ApplicationWindow
@@ -54,6 +55,9 @@ public class MainApplication extends ApplicationWindow
 		viewer = new WebsiteTableViewer( parent );
 
 		refresh();
+
+		Spider spid = new Spider();
+		spid.run();
 
 		return viewer.getTable();
 	}
