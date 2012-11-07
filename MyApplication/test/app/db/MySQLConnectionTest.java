@@ -1,6 +1,7 @@
 package app.db;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MySQLConnectionTest extends TestCase
@@ -17,6 +18,7 @@ public class MySQLConnectionTest extends TestCase
 		{
 			fail( "MYSQL Connection test failed: " + e.getMessage() );
 			System.out.println( e );
+			Assert.assertArrayEquals( expecteds, actuals )
 		}
 	}
 }
